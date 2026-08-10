@@ -1,6 +1,7 @@
 import flights_data
 from datetime import datetime
 import sqlalchemy
+from export import csv_export
 
 IATA_LENGTH = 3
 
@@ -40,7 +41,7 @@ def flight_by_id():
     valid = False
     while not valid:
         try:
-            id_input = int(input("Enter flight ID: ")).strip()
+            id_input = int(input("Enter flight ID: "))
         except Exception as e:
             print("Try again...")
         else:
@@ -95,6 +96,10 @@ def print_results(results):
             print(f"{result['ID']}. {origin} -> {dest} by {airline}, Delay: {delay} Minutes")
         else:
             print(f"{result['ID']}. {origin} -> {dest} by {airline}")
+
+    if input("Would you like to export this data to a CSV file? (y/n)") == "y":
+        csv_export(input("Enter a file name: ").strip(), result)
+        print("Export completed successfully")
 
 
 def show_menu_and_get_input():
