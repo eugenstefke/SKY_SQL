@@ -77,11 +77,12 @@ def print_results(results):
     FLIGHT_ID, ORIGIN_AIRPORT, DESTINATION_AIRPORT, AIRLINE, and DELAY.
     """
     print(f"Got {len(results)} results.")
+    new_results = []
     for result in results:
         # turn result into dictionary
         result = result._mapping
 
-        # Check that all required columns are in place
+        #Check that all required columns are in place
         try:
             delay = int(result['DELAY']) if result['DELAY'] else 0  # If delay columns is NULL, set it to 0
             origin = result['ORIGIN_AIRPORT']
@@ -94,12 +95,13 @@ def print_results(results):
         # Different prints for delayed and non-delayed flights
         if delay and delay > 0:
             print(f"{result['ID']}. {origin} -> {dest} by {airline}, Delay: {delay} Minutes")
-        else:
-            print(f"{result['ID']}. {origin} -> {dest} by {airline}")
+            new_results.append(dict(result))
 
+
+    #print(new_results)
     if input("Would you like to export this data to a CSV file? (y/n)") == "y":
-        csv_export(input("Enter a file name: ").strip(), result)
-        print("Export completed successfully")
+        csv_export(input("Enter a file name: ").strip(), new_results)
+
 
 
 def show_menu_and_get_input():

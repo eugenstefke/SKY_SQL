@@ -14,8 +14,12 @@ def csv_export(file_name, flight_data):
 
     fieldnames = list(flight_data[0].keys())
 
-    with open(f"{file_name}.csv", "w", encoding="utf-8", newline="") as csvobj:
-        writer = csv.DictWriter(csvobj, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in flight_data:
-            writer.writerow(dict(row))
+    try:
+        with open(f"{file_name}.csv", "w", encoding="utf-8", newline="") as csvobj:
+            writer = csv.DictWriter(csvobj, fieldnames=fieldnames)
+            writer.writeheader()
+            for row in flight_data:
+                writer.writerow(dict(row))
+            print("Export completed successfully")
+    except PermissionError:
+        print(f"File object with the name {file_name} exist.")
