@@ -2,8 +2,8 @@ from sqlalchemy import create_engine, text
 
 QUERY_FLIGHT_BY_ID = "SELECT flights.*, airlines.airline, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY as DELAY FROM flights JOIN airlines ON flights.airline = airlines.id WHERE flights.ID = :id"
 QUERY_FLIGHT_BY_DATE = "SELECT flights.*, airlines.airline, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY as DELAY FROM flights JOIN airlines ON flights.airline = airlines.id WHERE flights.DAY = :day AND flights.MONTH = :month AND flights.YEAR = :year"
-QUERY_DELAYED_FLIGHTS_BY_AIRPORT = "SELECT flights.*, airlines.airline, airports.AIRPORT, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY as DELAY FROM flights JOIN airlines ON flights.airline = airlines.id JOIN airports ON flights.ORIGIN_AIRPORT = airports.IATA_CODE WHERE airports.IATA_CODE = :IATA_CODE AND DELAY > 0"
-QUERY_DELAYED_FLIGHTS_BY_AIRLINE =  "SELECT flights.*, airlines.airline, airports.AIRPORT, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY as DELAY FROM flights JOIN airlines ON flights.airline = airlines.id JOIN airports ON flights.ORIGIN_AIRPORT = airports.IATA_CODE WHERE airlines.AIRLINE LIKE :AIRLINE AND DELAY > 0"
+QUERY_DELAYED_FLIGHTS_BY_AIRPORT = "SELECT flights.*, airlines.airline, airports.AIRPORT, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY AS DELAY FROM flights JOIN airlines ON flights.airline = airlines.id JOIN airports ON flights.ORIGIN_AIRPORT = airports.IATA_CODE WHERE airports.IATA_CODE = :IATA_CODE AND flights.DEPARTURE_DELAY > 20 AND flights.DEPARTURE_DELAY IS NOT NULL"
+QUERY_DELAYED_FLIGHTS_BY_AIRLINE =  "SELECT flights.*, airlines.airline, airports.AIRPORT, flights.ID as FLIGHT_ID, flights.DEPARTURE_DELAY AS DELAY FROM flights JOIN airlines ON flights.airline = airlines.id JOIN airports ON flights.ORIGIN_AIRPORT = airports.IATA_CODE WHERE airlines.AIRLINE LIKE :AIRLINE AND flights.DEPARTURE_DELAY > 20 AND flights.DEPARTURE_DELAY IS NOT NULL"
 
 # Define the database URL
 DATABASE_URL = "sqlite:///data/flights.sqlite3"

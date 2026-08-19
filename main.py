@@ -95,8 +95,10 @@ def print_results(results):
         # Different prints for delayed and non-delayed flights
         if delay and delay > 0:
             print(f"{result['ID']}. {origin} -> {dest} by {airline}, Delay: {delay} Minutes")
-            new_results.append(dict(result))
+        else:
+            print(f"{result['ID']}. {origin} -> {dest} by {airline}")
 
+        new_results.append(dict(result))
 
     #print(new_results)
     if input("Would you like to export this data to a CSV file? (y/n)") == "y":
